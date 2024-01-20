@@ -19,7 +19,9 @@ public class ArithmeticQue1 {
             String line;
             while ((line = reader.readLine()) != null) {
                 String result = evaluateExpression(line);
+                if(result.length() > 0) {
                 writer.write(line + " = " + result + "\n");
+                }
             }
             System.out.println("Expressions solved successfully. Results written to " + outputFile);
         }
@@ -47,12 +49,18 @@ public class ArithmeticQue1 {
             }
         }
 
-        while (!operators.isEmpty()) {
+        while (!operators.isEmpty() && !operands.isEmpty()) {
             operands.push(performOperation(operators.pop(), operands.pop(), operands.pop()));
         }
 
-        return String.valueOf(operands.pop());
+        // Ensure the result is not an empty stack
+        if (!operands.isEmpty()) {
+            return String.valueOf(operands.pop());
+        } else {
+            return "";
+        }
     }
+
 
     private static boolean isOperator(char ch) {
         return ch == '+' || ch == '-' || ch == '*' || ch == '/' || ch == '^';
@@ -85,5 +93,3 @@ public class ArithmeticQue1 {
         }
     }
 }
-
-
